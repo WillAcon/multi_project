@@ -8,7 +8,6 @@ os.makedirs(INPUT_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(PROGRESS_DIR, exist_ok=True)
 
-
 async def process_file(job_id: str, input_file: str):
     with open(input_file, "r") as f:
         lines = f.readlines()
@@ -39,15 +38,11 @@ def main():
             if file.endswith(".txt"):
                 job_id = os.path.splitext(file)[0]
                 input_file = os.path.join(INPUT_DIR, file)
-
                 # Procesar archivo (bloqueante pero OK para batch)
                 asyncio.run(process_file(job_id, input_file))
-
                 # Opcional: limpiar input
                 os.remove(input_file)
-
         time.sleep(2)
-
 
 if __name__ == "__main__":
     main()
