@@ -1,0 +1,30 @@
+services:
+  redis:
+    image: redis:7
+    container_name: redis_server
+    ports:
+      - "6479:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - shared_net
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: redisinsight_server
+    ports:
+      - "9018:5540"
+    volumes:
+      - redisinsight_data:/data
+    depends_on:
+      - redis
+    networks:
+      - shared_net
+
+volumes:
+  redis_data:
+  redisinsight_data:
+
+networks:
+  shared_net:
+    external: true

@@ -1,0 +1,17 @@
+services:
+  backend:
+    build: .
+    container_name: fastapi-backend_server
+    ports:
+      - "1101:8000"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - shared_net
+    volumes:
+      - ../shared:/srv/shared
+
+networks:
+  shared_net:
+    external: true

@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  batch:
+    build: .
+    container_name: batch-worker
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      - ./batch:/batch
+      - ../shared:/srv/shared
+    networks:
+      - shared_net
+   
+networks:
+  shared_net:
+    external: true
