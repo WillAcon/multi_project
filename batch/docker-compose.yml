@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   batch:
     build: .
@@ -6,6 +5,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - PYTHONUNBUFFERED=1
     volumes:
       - ./batch:/batch
       - ../shared:/srv/shared

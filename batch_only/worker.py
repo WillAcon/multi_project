@@ -1,8 +1,16 @@
-import os, time, json, asyncio, shutil
+import os, time, json, asyncio
+import shutil
 
-INPUT_DIR = "/srv/shared/input"
-OUTPUT_DIR = "/srv/shared/output"
-QUEUE_DIR = "/srv/shared/queue"
+BASE_DIR = os.path.expanduser("~/Documents/shared")
+# BASE_DIR = "D:/shared" # en caso de utilizar un disco D en windows
+
+INPUT_DIR = os.path.join(BASE_DIR, "input")
+OUTPUT_DIR = os.path.join(BASE_DIR, "output")
+QUEUE_DIR = os.path.join(BASE_DIR, "queue")
+
+print("INPUT_DIR:", INPUT_DIR)
+print("OUTPUT_DIR:", OUTPUT_DIR)
+print("QUEUE_DIR:", QUEUE_DIR)
 
 os.makedirs(INPUT_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -14,10 +22,10 @@ async def process_task(tipo: str, job_id: str, task_file: str):
     os.makedirs(output_dir, exist_ok=True)
 
     base_file = os.path.join(input_dir, "base.txt")
-    diccionario_file = os.path.join(input_dir, "diccionario.xls")
+    diccionario_file = os.path.join(input_dir, "diccionario.xlsx")
 
     base_result = os.path.join(output_dir, "base_result.txt")
-    diccionario_result = os.path.join(output_dir, "diccionario_result.xls")
+    diccionario_result = os.path.join(output_dir, "diccionario_result.xlsx")
 
     total_steps = 10
     for i in range(total_steps):

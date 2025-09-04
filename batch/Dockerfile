@@ -10,4 +10,5 @@ COPY . .
 # RQ escuchará la cola "batch_jobs"
 # CMD ["rq", "worker", "batch_jobs", "--url", "redis://redis:6379/0"]
 
-CMD ["python", "tasks.py"]
+
+CMD ["python", "-u", "tasks.py"]
