@@ -29,9 +29,9 @@ os.makedirs(QUEUE_DIR, exist_ok=True)
  
 class ProgressMsg(BaseModel):
     progress: int
-    tipo: str
+    task: str
     job_id: str
-    status: Optional[str] = None
+    status: Optional[int] = None
 
 
 @app.post("/upload")
