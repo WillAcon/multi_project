@@ -34,8 +34,7 @@ async def process_task(seccion: str, task: str, task_file: str):
         # 🔹 Actualizar progreso en la cola
         with open(task_file, "w") as f:
             
-            nom_temp = str(uuid.uuid4())
-            reporte_csv = f"{nom_temp}.txt"
+            reporte_csv = '218371296321874623874628376487235487235 copia 2'
     
             json.dump({
                 "seccion": seccion, # app_bd o app_bd2
