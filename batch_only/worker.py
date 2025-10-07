@@ -27,15 +27,10 @@ async def process_task(seccion: str, task: str, task_file: str):
 
     total_steps = 20
     for i in range(total_steps):
-        # time.sleep(0.5)  # 🔹 Simula trabajo pesado
         await asyncio.sleep(0.5)
         percent = int(((i + 1) / total_steps) * 100)
-
-        # 🔹 Actualizar progreso en la cola
         with open(task_file, "w") as f:
-            
             reporte_csv = '218371296321874623874628376487235487235 copia 2'
-    
             json.dump({
                 "seccion": seccion, # app_bd o app_bd2
                 "job_id": task,
@@ -45,10 +40,6 @@ async def process_task(seccion: str, task: str, task_file: str):
                 "status": 2 if percent < 100 else 3,
                 "reporte_csv": reporte_csv
             }, f)
-
-    # ✅ Simular resultados al completar el proceso
-    # codigo aqui
-
     print(f"Tarea completada: {task} (seccion={seccion}) ✅")
 
 def main():
@@ -58,7 +49,6 @@ def main():
             seccion_path = os.path.join(QUEUE_DIR, seccion)
             if not os.path.isdir(seccion_path):
                 continue
-            
             # ordenar por fecha de creación
             files = sorted(
                 os.listdir(seccion_path),
@@ -78,9 +68,7 @@ def main():
                 except (json.JSONDecodeError, OSError):
                     # archivo vacío o en proceso de escritura, esperar al próximo ciclo
                     continue
-
                 progress = data.get("progress", 0)
-
                 # 🚫 Archivos completados (progress=100)
                 if progress >= 100:
                     # Si lleva más de 10 segundos, lo limpiamos
@@ -89,7 +77,6 @@ def main():
                         print(f"🧹 Limpiando tarea {task} (seccion={seccion}) con progress=100 que no fue borrada en 10s")
                         os.remove(task_file)
                     continue  # no reprocesar
-
                 # ✅ Solo procesar tareas pendientes
                 print(f"🔎 Nueva tarea detectada -> seccion={seccion}, task={task}", flush=True)
                 print(f"Procesando tarea {task} (seccion={seccion})...", flush=True)

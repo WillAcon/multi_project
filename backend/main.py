@@ -52,7 +52,7 @@ async def upload_file(
     with open(excel_path, "wb") as f:
         f.write(await excel_file.read())
     return {"job_id": job_id, "tipo": tipo, "message": "Archivos guardados correctamente"}
-
+ 
 @app.post("/start/queue")
 async def start_queue(job_id: str = Form(...), tipo: str = Form(...)):
     task_dir = os.path.join(QUEUE_DIR, tipo)
